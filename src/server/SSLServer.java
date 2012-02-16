@@ -13,9 +13,10 @@ import javax.net.ssl.*;
 
 public class SSLServer {
 	
-	
+
 	
 	public SSLServer(int port){
+		
 		try {
 			listen(port);
 		} catch (IOException e) {

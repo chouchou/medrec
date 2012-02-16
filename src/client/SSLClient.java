@@ -6,7 +6,10 @@ import java.net.UnknownHostException;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.SSLSocketFactory;
 
+
+
 public class SSLClient {
+	
 
 public SSLClient() {
 	SSLSocketFactory  sslfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
