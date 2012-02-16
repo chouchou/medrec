@@ -1,5 +1,7 @@
 package server;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.IOException;
 import java.security.cert.X509Certificate;
 
@@ -27,9 +29,16 @@ public class SSLServer {
 		
 		SSLServerSocket	ss = (SSLServerSocket) factory.createServerSocket(port);
 		SSLSocket connection = (SSLSocket)ss.accept();
+		BufferedInputStream input = new BufferedInputStream(connection.getInputStream());
+		BufferedOutputStream output = new BufferedOutputStream(connection.getOutputStream());
+		connection.setNeedClientAuth(true);
 		SSLSession session = connection.getSession();
 		javax.security.cert.X509Certificate cert = session.getPeerCertificateChain()[0];
 		cert.getSerialNumber();
+		
+		
+		
+		
 		
 		
 	}
