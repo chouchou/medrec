@@ -8,7 +8,7 @@ public class test {
 	public static void main(String[] args) {
 		System.setProperty("javax.net.ssl.keyStore", "Serverkeystore");
 		System.setProperty("javax.net.ssl.keyStorePassword", "storepass");
-		System.setProperty("javax.net.ssl.trustStore", "Clientkeystore");
+		System.setProperty("javax.net.ssl.trustStore", "Servertruststore");
 		System.setProperty("javax.net.ssl.truststorPassword", "storepass");
 		SSLServer s = new SSLServer(9999);
 

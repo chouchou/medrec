@@ -26,13 +26,14 @@ public class SSLServer {
 		
 	}
 	
-	private void listen(int port) throws IOException{
+	public void listen(int port) throws IOException{
 		ServerSocketFactory factory = SSLServerSocketFactory.getDefault();
 		 
 		
 		SSLServerSocket	ss = (SSLServerSocket) factory.createServerSocket(port);
-		ss.setNeedClientAuth(true);
+		
 		SSLSocket connection = (SSLSocket)ss.accept();
+		ss.setNeedClientAuth(true);
 		System.out.println("connection established");
 		establishAndValidate(connection);
 		
