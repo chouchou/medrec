@@ -8,12 +8,12 @@ import javax.net.ssl.SSLSocketFactory;
 
 public class SSLClient {
 
-
 public SSLClient() {
 	SSLSocketFactory  sslfactory = (SSLSocketFactory) SSLSocketFactory.getDefault();
 	try {
 		SSLSocket sslsocket = (SSLSocket) sslfactory.createSocket("localhost", 9999);
 		
+		sslsocket.startHandshake();
 		InputStream input = System.in;
 		InputStreamReader inputstreamreader = new InputStreamReader(input);
         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
