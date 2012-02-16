@@ -6,10 +6,7 @@ public class test {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.setProperty("javax.net.ssl.keyStore", "Clientkeystore");
-		System.setProperty("javax.net.ssl.keyStorePassword", "storepass");
-		System.setProperty("javax.net.ssl.trustStore", "Clienttruststore");
-		System.setProperty("javax.net.ssl.truststorPassword", "storepass");
+		System.setProperty("javax.net.debug", "ssl,handshake");
 		SSLClient c = new SSLClient();
 
 	}
