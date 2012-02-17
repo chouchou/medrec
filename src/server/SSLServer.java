@@ -17,7 +17,7 @@ import javax.net.SocketFactory;
 import javax.net.ssl.*;
 
 public class SSLServer {
-
+	ConnectionHandler handler = new ConnectionHandler();
 	public SSLServer(int port) {
 		try {
 			setUpSomeTrustAndListen(port);
@@ -62,6 +62,15 @@ public class SSLServer {
 		SSLSession session = connection.getSession();
 		javax.security.cert.X509Certificate cert = session.getPeerCertificateChain()[0];
 		String subject = cert.getSubjectDN().getName();
+		handler.enableCommunication(w, r);
+//		if(handler.validateSubject(subject)){
+//			
+//		}
+//		else{
+//			w.write("Subject not in the system");
+//			w.flush();
+//			//Close socket
+//		}
 		
 		
 		
