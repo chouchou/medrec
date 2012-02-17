@@ -11,17 +11,22 @@ import java.util.HashMap;
 public class DataParser {
 	private String fileName;
 	private Human currentUser;
-	
+	FileInputStream fstream;
+	DataInputStream in;
+	BufferedReader br;
 
 	public DataParser(String fileName) {
 		this.fileName = fileName;
+		try {
+			fstream = new FileInputStream(fileName);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		in = new DataInputStream(fstream);
+		br = new BufferedReader(new InputStreamReader(in));
 	}
 
-	public boolean identifyUser(String subject) {
-		try {
-			FileInputStream fstream = new FileInputStream(fileName);
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+	public boolean identifyUser(String subject) throws Exception {
 			String strLine;
 			while ((strLine = br.readLine()) != null) {
 				String[] s1 = strLine.split(":");
@@ -30,23 +35,15 @@ public class DataParser {
 				if(s1[0].equals(s2)){
 					loadUser(s1);
 					return true;
-					
-				}
-				
+	
 			}
-			
-		} catch (Exception e) {
-			System.err.println("Error: " + e.getMessage());
-		}
+			}
+	
 		return false;
 	}
 		public HashMap<Integer, Human> findPatients(int division) throws Exception {
 			HashMap<Integer, Human> patients = new HashMap<Integer, Human>();
-			
-				
-				FileInputStream fstream = new FileInputStream(fileName);
-				DataInputStream in = new DataInputStream(fstream);
-				BufferedReader br = new BufferedReader(new InputStreamReader(in));
+
 				String strLine;
 				while ((strLine = br.readLine()) != null) {
 					String[] s = strLine.split(":");
@@ -67,20 +64,19 @@ public class DataParser {
 
 		public void loadUser(String[] s) throws Exception{
 			HumanFactory hf = new HumanFactory();
-			HashMap<Integer, Human> complete = new HashMap<Integer,Human>(); 
+			HashMap<Integer, Human> write = new HashMap<Integer,Human>(); 
 			if(s[1]=="SS"){
 					
 			}else if (s[1]!="Patient"){
-				complete.putAll(findPatients(Integer.parseInt(s[2])));
+				HashMap<Integer, Human> read = findPatients(Integer.parseInt(s[2]));
 				String[] additPat = s[3].split(",");
 				for(int i=0;i<additPat.length;i++){
-					complete.put(Integer.parseInt(additPat[0]), new Patient(Integer.parseInt(additPat[0]), new HashMap<Integer,Human>()));
+					write.put(Integer.parseInt(additPat[0]), new Patient(Integer.parseInt(additPat[0]), new HashMap<Integer,Human>()));
 				}
-				currentUser = hf.createHumam(Integer.parseInt(s[0]), complete, s[1]);
+				currentUser = hf.createHumam(Integer.parseInt(s[0]), read, write, s[1]);
 				
 			}else{
-				complete.put(Integer.parseInt(s[0]), new Patient(Integer.parseInt(s[0]), new HashMap<Integer,Human>()));
-				currentUser = hf.createHumam(Integer.parseInt(s[0]), complete, s[1]);
+				currentUser = hf.createHumam(Integer.parseInt(s[0]), new HashMap<Integer,Human>(), null, s[1]);
 			}
 			
 		}
