@@ -6,8 +6,10 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.net.Socket;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.cert.X509Certificate;
@@ -56,10 +58,18 @@ public class SSLServer {
 		ss.setNeedClientAuth(true);
 		System.out.println("Made it");
 		SSLSocket connection = (SSLSocket) ss.accept();
-		BufferedWriter w = new BufferedWriter(new OutputStreamWriter(connection.getOutputStream()));
-        BufferedReader r = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-		System.out.println("Made it More");
 		SSLSession session = connection.getSession();
+        InputStream inputstream = connection.getInputStream();
+        InputStreamReader inputstreamreader = new InputStreamReader(inputstream);
+        BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
+        ;
+        String string = null;
+       while ((string = bufferedreader.readLine()) != null) {
+            System.out.println(string);
+            System.out.flush();
+        }
+		System.out.println("Made it More");
+		
 		javax.security.cert.X509Certificate cert = session.getPeerCertificateChain()[0];
 		String subject = cert.getSubjectDN().getName();
 		

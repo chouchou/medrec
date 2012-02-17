@@ -3,6 +3,7 @@ package client;
 import java.io.*;
 import java.net.UnknownHostException;
 import java.security.KeyStore;
+import java.util.Arrays;
 
 import javax.net.ServerSocketFactory;
 import javax.net.ssl.KeyManagerFactory;
@@ -46,9 +47,20 @@ private void establishTrustWithServer()throws Exception{
 	SSLSocketFactory factory = sslc.getSocketFactory();
 	
 	SSLSocket ss = (SSLSocket) factory.createSocket("localhost",9999);
-	BufferedWriter w = new BufferedWriter(new OutputStreamWriter(ss.getOutputStream()));
-    BufferedReader r = new BufferedReader(new InputStreamReader(ss.getInputStream()));
     ss.startHandshake();
-	w.write("hej");
+    InputStream input = System.in;
+    InputStreamReader inputreader = new InputStreamReader(input);
+    BufferedReader bufferedreader = new BufferedReader(inputreader);
+
+    OutputStream outputstream = ss.getOutputStream();
+    OutputStreamWriter outputstreamwriter = new OutputStreamWriter(outputstream);
+    BufferedWriter bufferedwriter = new BufferedWriter(outputstreamwriter);
+    String string = null;
+//    ss.setEnabledProtocols(new String[] {"SSLv3", "TLSv1"});
+//    System.out.println(Arrays.toString(ss.getEnabledProtocols()));
+    while ((string = bufferedreader.readLine()) != null) {
+        bufferedwriter.write(string + '\n');
+        bufferedwriter.flush();
+}
 }
 }
