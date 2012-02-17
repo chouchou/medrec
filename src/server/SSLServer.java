@@ -1,43 +1,41 @@
 package server;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.net.Socket;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
-import java.security.cert.X509Certificate;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 import javax.net.ServerSocketFactory;
-import javax.net.SocketFactory;
 import javax.net.ssl.*;
 
 public class SSLServer {
 	ConnectionHandler handler = new ConnectionHandler();
 	FileHandler fileTxt;
+	File log = new File("log.txt");
+	Logger logger;
 
 	public SSLServer(int port) {
-		
+		log.delete();
 		try {
 			fileTxt = new FileHandler("log.txt");
-			Logger logger = Logger.getLogger("MyLog");
-		     logger.addHandler(fileTxt);
-		      logger.setLevel(Level.ALL);
-		      SimpleFormatter formatter = new SimpleFormatter();
-		      fileTxt.setFormatter(formatter);
+			logger = Logger.getLogger("MyLog");
+		    logger.addHandler(fileTxt);
+		    logger.setLevel(Level.ALL);
+		    SimpleFormatter formatter = new SimpleFormatter();
+		    fileTxt.setFormatter(formatter);
 
 		      // the following statement is used to log any messages   
-		      logger.log(Level.WARNING,"My first log");
+		      logger.log(Level.INFO,"Servern startas");
 
 			
 			setUpSomeTrustAndListen(port);
@@ -72,8 +70,9 @@ public class SSLServer {
 
 		SSLServerSocket ss = (SSLServerSocket) factory.createServerSocket(port);
 		ss.setNeedClientAuth(true);
-		System.out.println("Made it");
+		
 		SSLSocket connection = (SSLSocket) ss.accept();
+		logger.log(Level.INFO,"User Conneting");
 		SSLSession session = connection.getSession();
 
 		BufferedReader r = new BufferedReader(new InputStreamReader(connection
@@ -84,7 +83,7 @@ public class SSLServer {
 		javax.security.cert.X509Certificate cert = session
 				.getPeerCertificateChain()[0];
 		String subject = cert.getSubjectDN().getName();
-
+		logger.log(Level.INFO,"Connected User:"+ subject);
 //		if (handler.validateSubject(subject)) {
 //			;
 //		} else {
