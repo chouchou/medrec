@@ -13,6 +13,10 @@ import java.net.Socket;
 import java.security.GeneralSecurityException;
 import java.security.KeyStore;
 import java.security.cert.X509Certificate;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.net.ServerSocketFactory;
 import javax.net.SocketFactory;
@@ -20,9 +24,22 @@ import javax.net.ssl.*;
 
 public class SSLServer {
 	ConnectionHandler handler = new ConnectionHandler();
+	FileHandler fileTxt;
 
 	public SSLServer(int port) {
+		
 		try {
+			fileTxt = new FileHandler("log.txt");
+			Logger logger = Logger.getLogger("MyLog");
+		     logger.addHandler(fileTxt);
+		      logger.setLevel(Level.ALL);
+		      SimpleFormatter formatter = new SimpleFormatter();
+		      fileTxt.setFormatter(formatter);
+
+		      // the following statement is used to log any messages   
+		      logger.log(Level.WARNING,"My first log");
+
+			
 			setUpSomeTrustAndListen(port);
 		} catch (GeneralSecurityException e) {
 			// TODO Auto-generated catch block
@@ -63,18 +80,18 @@ public class SSLServer {
 				.getInputStream()));
 		BufferedWriter w = new BufferedWriter(new OutputStreamWriter(connection
 				.getOutputStream()));
-
+		handler.startCommunication(w, r);
 		javax.security.cert.X509Certificate cert = session
 				.getPeerCertificateChain()[0];
 		String subject = cert.getSubjectDN().getName();
 
-		if (handler.validateSubject(subject)) {
-			handler.startCommunication(w, r);
-		} else {
-			w.write("Subject not in the system");
-			w.flush();
-			// Close socket
-		}
+//		if (handler.validateSubject(subject)) {
+//			;
+//		} else {
+//			w.write("Subject not in the system");
+//			w.flush();
+//			// Close socket
+//		}
 
 	}
 
