@@ -24,19 +24,21 @@ public class ConnectionHandler {
 	
 	private void enableCommunication(BufferedWriter writer, BufferedReader reader) throws IOException{
 		try {
-			writer.write("Communication is now open\n Use commands:\nA - For adding new entry\nV personNumber - For viewing entry with pnbr\n " +
-					"R personNumber - For removing entry with pnbr\n");
+			writer.write("Communication is now open Use commands: A - " +
+					"For adding new entry V personNumber - " +
+					"For viewing entry with pnbr R personNumber - " +
+					"For removing entry with pnbr\n" );
 			writer.flush();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		char command = reader.readLine().toCharArray()[0];
-		
+		 
 		while(command != 0){
 			
 			switch(command){
 			case ADD : 
-				writer.write("Adding journal to patient");	
+				writer.write("Adding journal to patient\n");	
 			break;
 			case VIEW : break;
 			case REMOVE : break;
@@ -56,17 +58,18 @@ public class ConnectionHandler {
 	}
 	
 	public void startCommunication(BufferedWriter writer, BufferedReader reader) throws IOException{
-		writer.write("Please specify a patient with format YYMMDD or EXIT to close application");
+		writer.write("Please specify a patient with format YYMMDD or EXIT to close application\n");
 		writer.flush();
 		response = reader.readLine();
 		if(response == "EXIT"){
 			//Close system
 		}
-		getCurrentUser();
-		else if(getCurrentUser().viewJournal(response)){
+		
+		else if (true){
 			writer.write("Access granted for patient: " + response);
 			writer.flush();
 			enableCommunication(writer, reader);
+//			getCurrentUser().viewJournal(response)
 		}
 		else{
 			writer.write("Unable to perform operation");

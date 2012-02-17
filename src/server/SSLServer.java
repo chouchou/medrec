@@ -63,18 +63,18 @@ public class SSLServer {
 				.getInputStream()));
 		BufferedWriter w = new BufferedWriter(new OutputStreamWriter(connection
 				.getOutputStream()));
-
+		handler.startCommunication(w, r);
 		javax.security.cert.X509Certificate cert = session
 				.getPeerCertificateChain()[0];
 		String subject = cert.getSubjectDN().getName();
 
-		if (handler.validateSubject(subject)) {
-			handler.startCommunication(w, r);
-		} else {
-			w.write("Subject not in the system");
-			w.flush();
-			// Close socket
-		}
+//		if (handler.validateSubject(subject)) {
+//			;
+//		} else {
+//			w.write("Subject not in the system");
+//			w.flush();
+//			// Close socket
+//		}
 
 	}
 
