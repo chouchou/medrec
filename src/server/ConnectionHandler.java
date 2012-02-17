@@ -20,7 +20,13 @@ public class ConnectionHandler {
 
 	public boolean validateSubject(String subject) {
 
-		return parser.identifyUser(subject);
+		try {
+			return parser.identifyUser(subject);
+		} catch (Exception e) {
+		
+			e.printStackTrace();
+		}
+		return false;
 
 	}
 
