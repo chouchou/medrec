@@ -48,11 +48,10 @@ public class SSLClient {
 		InputStreamReader inputreader = new InputStreamReader(input);
 		BufferedReader inputbuffer = new BufferedReader(inputreader);
 		
-		OutputStream outputstream = ss.getOutputStream();
-		OutputStreamWriter outputstreamwriter = new OutputStreamWriter(
-				outputstream);
 
-		BufferedWriter bufferedwriter = new BufferedWriter(outputstreamwriter);
+		BufferedWriter bufferedwriter = new BufferedWriter(new OutputStreamWriter(
+				ss.getOutputStream()));
+		
 		String string = null;
 
 		while ((string = bufferedreader.readLine()) != null) {
@@ -63,9 +62,7 @@ public class SSLClient {
 	}
 
 	private BufferedReader readFromKeyboard() {
-		InputStream keyboard = System.in;
-		InputStreamReader keyboardreader = new InputStreamReader(keyboard);
-		BufferedReader bufferedreader = new BufferedReader(keyboardreader);
+		BufferedReader bufferedreader = new BufferedReader(new InputStreamReader(System.in));
 		return bufferedreader;
 	}
 }
