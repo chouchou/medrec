@@ -62,7 +62,7 @@ public class SSLServer {
         InputStream inputstream = connection.getInputStream();
         InputStreamReader inputstreamreader = new InputStreamReader(inputstream);
         BufferedReader bufferedreader = new BufferedReader(inputstreamreader);
-        ;
+        
         String string = null;
        while ((string = bufferedreader.readLine()) != null) {
             System.out.println(string);
