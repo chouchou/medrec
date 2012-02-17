@@ -32,31 +32,16 @@ public class SSLServer {
 
 	
 
-	private void establishAndValidate(SSLSocket connection) throws IOException {
-//		BufferedInputStream input = new BufferedInputStream(connection
-//				.getInputStream());
-//		BufferedOutputStream output = new BufferedOutputStream(connection
-//				.getOutputStream());
-//		SSLSession session = connection.getSession();
-//		// javax.security.cert.X509Certificate cert =
-//		// session.getPeerCertificateChain()[1];
-//		// cert.getSerialNumber();
-//		BufferedWriter w = new BufferedWriter(new OutputStreamWriter(connection
-//				.getOutputStream()));
-//		String s = "Hej Hej Hej";
-//		w.write(s, 0, s.length());
-//		w.flush();
 
-	}
 
 	private void setUpSomeTrustAndListen(int port) throws GeneralSecurityException,
 			IOException {
 		
 		char[] password = "storepass".toCharArray();
 		KeyStore clientTrusted = KeyStore.getInstance("JKS");
-		clientTrusted.load(new FileInputStream("clientpublic"),password);
+		clientTrusted.load(new FileInputStream("servertrust"),password);
 		KeyStore serverKeys = KeyStore.getInstance("JKS");
-		serverKeys.load(new FileInputStream("serverkeystore"),password);
+		serverKeys.load(new FileInputStream("serverkeys"),password);
 		
 		KeyManagerFactory serverkmf = KeyManagerFactory.getInstance("SunX509");
 		serverkmf.init(serverKeys, "keypass".toCharArray());
@@ -77,7 +62,7 @@ public class SSLServer {
 		SSLSession session = connection.getSession();
 		javax.security.cert.X509Certificate cert = session.getPeerCertificateChain()[0];
 		String subject = cert.getSubjectDN().getName();
-		System.out.println (subject);
+		
 		
 
 	

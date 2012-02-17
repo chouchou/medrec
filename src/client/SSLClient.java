@@ -32,9 +32,9 @@ private void establishTrustWithServer()throws Exception{
 	
 	char[] password = "storepass".toCharArray();
 	KeyStore serverTrusted = KeyStore.getInstance("JKS");
-	serverTrusted.load(new FileInputStream("serverpublic"),password);
+	serverTrusted.load(new FileInputStream("clienttrust"),password);
 	KeyStore clientKeys = KeyStore.getInstance("JKS");
-	clientKeys.load(new FileInputStream("clientkeystore"),password);
+	clientKeys.load(new FileInputStream("clientkeys"),password);
 	
 	KeyManagerFactory clientkmf = KeyManagerFactory.getInstance("SunX509");
 	clientkmf.init(clientKeys, "keypass".toCharArray());
