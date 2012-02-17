@@ -53,7 +53,7 @@ public class SSLClient {
 				ss.getOutputStream()));
 		
 		String string = null;
-		System.out.println(inputbuffer.readLine());
+
 		while ((string = bufferedreader.readLine()) != null) {
 			bufferedwriter.write(string + '\n');
 			bufferedwriter.flush();
