@@ -7,7 +7,7 @@ import java.util.HashMap;
 
 public class Doctor extends Human {
 	private HashMap<Integer, Human> accessToThesePpl;
-	public Doctor(int personalNumber, HashMap<Integer, Human> accessToThesePpl) {
+	public Doctor(int personalNumber, HashMap<Integer, Human> accessToThesePpl, HashMap<Integer, Human> write) {
 		super(personalNumber, accessToThesePpl);
 	}
 	public void createRecord(int id, String fileName) throws IOException{
