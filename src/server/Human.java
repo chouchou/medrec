@@ -1,16 +1,20 @@
 package server;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 
 public abstract class Human {
 	private int pNbr;
-	private HashMap<Integer, Human> access;
-	public Human(int pNbr, HashMap<Integer, Human> access){
-	this.access = access;
+	private HashMap<Integer, Human> read;
+	public Human(int pNbr, HashMap<Integer, Human> read){
+	this.read = read;
 	this.pNbr = pNbr;
-	access.put(pNbr,this);
+	read.put(pNbr,this);
 	}
 	
 	
@@ -19,10 +23,21 @@ public abstract class Human {
 		return pNbr + "\\";
 	}
 
+	public String readRecord(int id, String fileName) throws FileNotFoundException{
+		StringBuilder sb = new StringBuilder();
+		
+		
+		if(checkAccess(id)){
+			FileReader f = new FileReader(read.get(id).getPath()+fileName);
+			return f.toString();
+		}
+		return "Couldn't compute";
+	}
+	
 	public String writeRecord(int id,String fileName,String message) throws IOException{
 		
 		
-		Human target = access.get(id);
+		Human target = read.get(id);
 		FileWriter fstream = new FileWriter(target.getPath()+fileName+".txt");
 		fstream.write(message);
 		return "Successfully writen to: " + target.getPath()+fileName;
@@ -32,7 +47,7 @@ public abstract class Human {
 	}
 
 public boolean checkAccess(int id){
-	if(access.get(id) != null){
+	if(read.get(id) != null){
 		return true;
 	}else{
 		return false;
