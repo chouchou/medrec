@@ -34,16 +34,8 @@ public abstract class Human {
 		return "Couldn't compute";
 	}
 	
-	public String writeRecord(int id,String fileName,String message) throws IOException{
-		
-		
-		Human target = read.get(id);
-		FileWriter fstream = new FileWriter(target.getPath()+fileName+".txt");
-		fstream.write(message);
-		return "Successfully writen to: " + target.getPath()+fileName;
-		
-		
-		
+	public String writeRecord(int id,String fileName,String message){
+		return"No privilegies";
 	}
 
 public boolean checkAccess(int id){
