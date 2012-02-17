@@ -48,7 +48,11 @@ public class SSLClient {
 		InputStreamReader inputreader = new InputStreamReader(input);
 		BufferedReader inputbuffer = new BufferedReader(inputreader);
 		System.out.println(inputbuffer.readLine());
-
+		System.out.println(inputbuffer.readLine());
+		System.out.println(inputbuffer.readLine());
+		System.out.println(inputbuffer.readLine());
+		System.out.println(inputbuffer.readLine());
+		
 		OutputStream outputstream = ss.getOutputStream();
 		OutputStreamWriter outputstreamwriter = new OutputStreamWriter(
 				outputstream);

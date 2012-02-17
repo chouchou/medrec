@@ -35,12 +35,15 @@ public class ConnectionHandler {
 		while(command != 0){
 			
 			switch(command){
-			case ADD : writer.write("Go fuck yourself");
-						writer.flush();
+			case ADD : writer.write("Go fuck yourself\n");
+						
 			break;
-			default : writer.write("FEL FEL");
+			default : writer.write("FEL FEL\n");
+						
 				break;
+				
 			}
+			writer.flush();
 			command = reader.readLine().toCharArray()[0];
 		}
 		
