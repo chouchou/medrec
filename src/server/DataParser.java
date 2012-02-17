@@ -9,14 +9,15 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 public class DataParser {
-	String fileName;
-
+	private String fileName;
+	private Human currentUser;
+	
 
 	public DataParser(String fileName) {
 		this.fileName = fileName;
 	}
 
-	public void identifyUser(String subject) {
+	public boolean identifyUser(String subject) {
 		try {
 			FileInputStream fstream = new FileInputStream(fileName);
 			DataInputStream in = new DataInputStream(fstream);
@@ -28,12 +29,16 @@ public class DataParser {
 								
 				if(s1[0].equals(s2)){
 					loadUser(s1);
+					return true;
 					
 				}
+				
 			}
+			
 		} catch (Exception e) {
 			System.err.println("Error: " + e.getMessage());
 		}
+		return false;
 	}
 		public HashMap<Integer, Human> findPatients(int division) throws Exception {
 			HashMap<Integer, Human> patients = new HashMap<Integer, Human>();
@@ -54,6 +59,11 @@ public class DataParser {
 		return patients;
 		
 	}
+		
+		public Human getCurrentUser(){
+			return currentUser; 
+			
+		}
 
 		public void loadUser(String[] s) throws Exception{
 			HumanFactory hf = new HumanFactory();
@@ -66,11 +76,11 @@ public class DataParser {
 				for(int i=0;i<additPat.length;i++){
 					complete.put(Integer.parseInt(additPat[0]), new Patient(Integer.parseInt(additPat[0]), new HashMap<Integer,Human>()));
 				}
-				hf.createHumam(Integer.parseInt(s[0]), complete, s[1]);
+				currentUser = hf.createHumam(Integer.parseInt(s[0]), complete, s[1]);
 				
 			}else{
 				complete.put(Integer.parseInt(s[0]), new Patient(Integer.parseInt(s[0]), new HashMap<Integer,Human>()));
-				hf.createHumam(Integer.parseInt(s[0]), complete, s[1]);
+				currentUser = hf.createHumam(Integer.parseInt(s[0]), complete, s[1]);
 			}
 			
 		}

@@ -15,12 +15,12 @@ public class ConnectionHandler {
 	private String response;
 
 	public ConnectionHandler() {
-		parser = new DataParser();
+		parser = new DataParser("Users.txt");
 	}
 
 	public boolean validateSubject(String subject) {
 
-		return parser.parse("txtfile");
+		return parser.identifyUser(subject);
 
 	}
 
@@ -74,7 +74,7 @@ public class ConnectionHandler {
 	}
 
 	private Human getCurrentUser() {
-		return parser.currentPerson();
+		return parser.getCurrentUser();
 	}
 
 	public void startCommunication(BufferedWriter writer, BufferedReader reader)

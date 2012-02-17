@@ -22,7 +22,7 @@ public abstract class Human {
 	public String writeRecord(int id,String fileName,String message) throws IOException{
 		
 		
-		Human target =access.get(id);
+		Human target = access.get(id);
 		FileWriter fstream = new FileWriter(target.getPath()+fileName+".txt");
 		fstream.write(message);
 		return "Successfully writen to: " + target.getPath()+fileName;
