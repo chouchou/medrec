@@ -1,9 +1,11 @@
 package server;
 
+import java.util.HashMap;
+
 public class Human {
-	private int personalnumber;
+	private int personalNumber;
 	
-	public Human(){
+	public Human(int personalNumber, HashMap<Integer, Human> accessToThesePpl){
 	
 	}
 
