@@ -19,17 +19,17 @@ public abstract class Human {
 		return pNbr + "\\";
 	}
 
-	public String writeRecord(int id,String fileName) throws IOException{
+	public String writeRecord(int id,String fileName,String message) throws IOException{
 		
 		if(checkAccess(id)){
 	Human target =access.get(id);
 		FileWriter fstream = new FileWriter(target.getPath()+fileName+".txt");
-		fstream.write("");
+		fstream.write(message);
 		return "Successfully writen to: " + target.getPath()+fileName;
 		
 		}
 		else{
-			return "Access Denied";
+			return "Access Denied or subject is nonexistent";
 		}
 	}
 
