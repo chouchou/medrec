@@ -6,26 +6,26 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class Doctor extends MedicalPersonal {
-	private HashMap<Integer, Human> read;
-	private HashMap<Integer, Human> write;
-	public Doctor(String personalNumber, HashMap<String, Human> read, HashMap<String, Human> write) {
+
+	public Doctor(String personalNumber, HashMap<String, Human> read,
+			HashMap<String, Human> write) {
 		super(personalNumber, read, write);
-		
+
 	}
-	
-	public void createRecord(int id, String fileName) throws IOException{
-		
-		Human target =read.get(id);
-		if(target != null){
-		File file = new File(target.getPath()+fileName+".txt");
+
+	public String createRecord(String id, String fileName) {
+
+		if (hasWriteAccess(id)) {
+
+			File file = new File(write.get(id).getPath() + fileName + ".txt");
+			return "File: " + fileName + " was added\n";
 		}
-	}
-	public void associateNurse(int nurseId){
-		
-	}
-
-	
+		return "File: " + fileName + " was not added\n";
 
 	}
 
+	public void associateNurse(int nurseId) {
 
+	}
+
+}

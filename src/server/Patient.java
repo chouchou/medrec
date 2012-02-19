@@ -11,8 +11,20 @@ public class Patient extends Human {
 
 	@Override
 	public String writeRecord(String id, String fileName, String message) {
-		
-		return "No privilegies";
+
+		return "No access\n";
+	}
+
+	@Override
+	public String removeRecord(String id, String fileName) {
+
+		return "No access\n";
+	}
+
+	@Override
+	public String createRecord(String id, String fileName) {
+		// TODO Auto-generated method stub
+		return "No access\n";
 	}
 
 }

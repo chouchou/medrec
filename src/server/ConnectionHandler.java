@@ -13,7 +13,8 @@ public class ConnectionHandler {
 	private static final char EXIT = 'E';
 	private static final char WRITE = 'W';
 	private String response;
-	private String fileName; 
+	private String fileName;
+
 	public ConnectionHandler() {
 		parser = new DataParser("Users.txt");
 	}
@@ -23,7 +24,7 @@ public class ConnectionHandler {
 		try {
 			return parser.identifyUser(subject);
 		} catch (Exception e) {
-		
+
 			e.printStackTrace();
 		}
 		return false;
@@ -48,8 +49,11 @@ public class ConnectionHandler {
 
 			switch (command) {
 			case ADD:
-				writer.write("Specify");
-				writer.write("Adding journal to patient\n");
+				writer.write("Specify filenName\n");
+				writer.flush();
+				fileName = reader.readLine();
+				writer.write(getCurrentUser().createRecord(id, fileName));
+				writer.flush();
 				break;
 			case WRITE:
 				writer.write("Specify filename\n");
@@ -58,17 +62,24 @@ public class ConnectionHandler {
 				writer.write("Write message\n");
 				writer.flush();
 				String message = reader.readLine();
-				String whatHappend = getCurrentUser().writeRecord(
-						id, fileName, message);
-				writer.write(whatHappend);
+
+				writer.write(getCurrentUser()
+						.writeRecord(id, fileName, message));
 				writer.flush();
 			case VIEW:
 				writer.write("Specify filename\n");
 				writer.flush();
 				fileName = reader.readLine();
-				getCurrentUser().readRecord(id, fileName);
+
+				writer.write(getCurrentUser().readRecord(id, fileName));
+				writer.flush();
 				break;
 			case REMOVE:
+				writer.write("Specify filename\n");
+				writer.flush();
+				fileName = reader.readLine();
+				writer.write(getCurrentUser().removeRecord(id, fileName));
+				writer.flush();
 				break;
 			case EXIT:
 				startCommunication(writer, reader);
@@ -97,7 +108,7 @@ public class ConnectionHandler {
 			// Close system
 		}
 
-		else if (getCurrentUser().checkAccess(response)) {
+		else if (getCurrentUser().hasReadAccess(response)) {
 			writer.write("Access granted for patient: " + response);
 			writer.flush();
 			enableCommunication(writer, reader, response);
