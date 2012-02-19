@@ -20,32 +20,24 @@ import javax.net.ssl.*;
 
 public class SSLServer {
 	ConnectionHandler handler = new ConnectionHandler();
-	FileHandler fileTxt;
-	File log = new File("log.txt");
-	Logger logger;
+	FroggerLogger logger = FroggerLogger.getInstance();  
+	
+	
 
 	public SSLServer(int port) {
-		log.delete();
-		try {
-			fileTxt = new FileHandler("log.txt");
-			logger = Logger.getLogger("MyLog");
-		    logger.addHandler(fileTxt);
-		    logger.setLevel(Level.ALL);
-		    SimpleFormatter formatter = new SimpleFormatter();
-		    fileTxt.setFormatter(formatter);
-
-		      // the following statement is used to log any messages   
-		      logger.log(Level.INFO,"Servern startas");
-
+	
+		      logger.myLogger.log(Level.INFO,"Servern startas");
 			
-			setUpSomeTrustAndListen(port);
-		} catch (GeneralSecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				setUpSomeTrustAndListen(port);
+			} catch (GeneralSecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
 	}
 
 	private void setUpSomeTrustAndListen(int port)
@@ -72,7 +64,7 @@ public class SSLServer {
 		ss.setNeedClientAuth(true);
 		
 		SSLSocket connection = (SSLSocket) ss.accept();
-		logger.log(Level.INFO,"User Conneting");
+		logger.myLogger.log(Level.INFO,"User Conneting");
 		SSLSession session = connection.getSession();
 
 		BufferedReader r = new BufferedReader(new InputStreamReader(connection
@@ -83,11 +75,12 @@ public class SSLServer {
 		javax.security.cert.X509Certificate cert = session
 				.getPeerCertificateChain()[0];
 		String subject = cert.getSubjectDN().getName();
-		logger.log(Level.INFO,"Connected User:"+ subject);
+		logger.myLogger.log(Level.INFO,"Connected User:"+ subject);
 		if (handler.validateSubject(subject)) {
 			handler.startCommunication(w, r);
 		} else {
 			w.write("Subject not in the system");
+			logger.myLogger.log(Level.WARNING,"USER NOT IN SYSTEM"+ subject);
 			w.flush();
 			connection.close();
 		}

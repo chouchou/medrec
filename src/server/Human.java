@@ -1,16 +1,18 @@
 package server;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class Human {
-	private String pNbr;
+	protected String pNbr;
 	protected HashMap<String, Human> read;
+	FroggerLogger logger = FroggerLogger.getInstance();  
+
 
 	public Human(String pNbr, HashMap<String, Human> read) {
 		this.read = read;
@@ -46,6 +48,7 @@ public abstract class Human {
 					e.printStackTrace();
 				}
 			}
+			logger.myLogger.log(Level.INFO, pNbr+" reads journal "+ fileName +" for user "+ id );
 			return sb.toString()+"\n";
 			
 			
@@ -63,8 +66,10 @@ public abstract class Human {
 
 	public boolean hasReadAccess(String id) {
 		if (read.get(id) != null) {
+			logger.myLogger.log(Level.INFO, pNbr+" tries to access "+ id+":Accepted");
 			return true;
 		} else {
+			logger.myLogger.log(Level.INFO, pNbr+" tries to access "+ id+":Denied");
 			return false;
 		}
 	}
