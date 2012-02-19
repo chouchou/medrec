@@ -89,7 +89,7 @@ public class SSLServer {
 		} else {
 			w.write("Subject not in the system");
 			w.flush();
-			// Close socket
+			connection.close();
 		}
 
 	}

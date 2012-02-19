@@ -11,9 +11,9 @@ import javax.net.ssl.TrustManagerFactory;
 
 public class SSLClient {
 
-	public SSLClient() {
+	public SSLClient(String fileName) {
 		try {
-			establishTrustWithServer();
+			establishTrustWithServer(fileName);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -21,13 +21,13 @@ public class SSLClient {
 
 	}
 
-	private void establishTrustWithServer() throws Exception {
+	private void establishTrustWithServer(String fileName ) throws Exception {
 
 		char[] password = "storepass".toCharArray();
 		KeyStore serverTrusted = KeyStore.getInstance("JKS");
 		serverTrusted.load(new FileInputStream("clienttrust"), password);
 		KeyStore clientKeys = KeyStore.getInstance("JKS");
-		clientKeys.load(new FileInputStream("clientkeys"), password);
+		clientKeys.load(new FileInputStream(fileName), password);
 
 		KeyManagerFactory clientkmf = KeyManagerFactory.getInstance("SunX509");
 		clientkmf.init(clientKeys, "keypass".toCharArray());
