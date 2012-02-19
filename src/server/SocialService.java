@@ -13,14 +13,14 @@ public class SocialService extends Human {
 	public String removeRecord(String id, String fileName) {
 
 		if (hasReadAccess(id)) {
-			File file = new File(read.get(id).getPath() + fileName + ".txt");
+			File file = new File(read.get(id).getPath() + fileName);
 			file.delete();
-			return "File: " + read.get(id).getPath() + fileName + ".txt"
+			return "File: " + read.get(id).getPath() + fileName
 					+ "Was succesfully deleted\n";
 
 		}
 		return "Couldn't delete File: " + read.get(id).getPath() + fileName
-				+ ".txt" + "\n";
+				+  "\n";
 	}
 
 	@Override

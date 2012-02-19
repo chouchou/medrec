@@ -15,7 +15,7 @@ public class ConnectionHandler {
 	private String fileName;
 
 	public ConnectionHandler() {
-		parser = new DataParser("Users.txt");
+		parser = new DataParser("Users");
 	}
 
 	public boolean validateSubject(String subject) {
@@ -36,7 +36,7 @@ public class ConnectionHandler {
 			writer.write("Communication is now open Use commands: A - "
 					+ "For adding new entry V personNumber - "
 					+ "For viewing entry with pnbr R personNumber - "
-					+ "For removing entry with pnbr\n"
+					+ "For removing entry with pnbr"
 					+ "W - For writing to entyr\n");
 			writer.flush();
 		} catch (IOException e) {
@@ -65,6 +65,7 @@ public class ConnectionHandler {
 				writer.write(getCurrentUser()
 						.writeRecord(id, fileName, message));
 				writer.flush();
+				break;
 			case VIEW:
 				writer.write("Specify filename\n");
 				writer.flush();
@@ -108,13 +109,13 @@ public class ConnectionHandler {
 		}
 
 		else if (getCurrentUser().hasReadAccess(response)) {
-			writer.write("Access granted for patient: " + response);
+			writer.write("Access granted for patient: " + response+" ");
 			writer.flush();
 			enableCommunication(writer, reader, response);
 		} else {
-			writer.write("Unable to perform operation");
+			writer.write("Unable to perform operation ");
 			writer.flush();
-			// Close system
+			startCommunication(writer, reader);
 		}
 
 	}

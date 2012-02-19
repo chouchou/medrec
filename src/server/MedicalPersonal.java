@@ -1,5 +1,6 @@
 package server;
 
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,16 +21,21 @@ public abstract class MedicalPersonal extends Human {
 		if (hasWriteAccess(id)) {
 			Human target = write.get(id);
 			FileWriter fstream = null;
+			BufferedWriter bf = null;
 			try {
-				fstream = new FileWriter(target.getPath() + fileName + ".txt");
+				fstream = new FileWriter(target.getPath() + fileName);
+				bf = new BufferedWriter(fstream);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			try {
-				fstream.write(message);
+				bf.write(message);
+				bf.close();
 			} catch (IOException e) {
+				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
 			return "Successfully writen to: " + target.getPath() + fileName
 					+ "\n";
 		}

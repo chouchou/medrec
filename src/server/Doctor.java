@@ -17,7 +17,13 @@ public class Doctor extends MedicalPersonal {
 
 		if (hasWriteAccess(id)) {
 
-			File file = new File(write.get(id).getPath() + fileName + ".txt");
+			File file = new File(write.get(id).getPath() + fileName);
+			try {
+				file.createNewFile();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return "File: " + fileName + " was added\n";
 		}
 		return "File: " + fileName + " was not added\n";

@@ -1,8 +1,12 @@
 package server;
 
+import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public abstract class Human {
 	private String pNbr;
@@ -15,15 +19,36 @@ public abstract class Human {
 	}
 
 	public String getPath() {
-		return pNbr + "\\";
+		return pNbr + "/";
 	}
 
 	public String readRecord(String id, String fileName)
 			throws FileNotFoundException {
-
+		StringBuilder sb = new StringBuilder();
+		
 		if (hasReadAccess(id)) {
-			FileReader f = new FileReader(read.get(id).getPath() + fileName);
-			return f.toString() + "\n";
+			FileReader fr = new FileReader(read.get(id).getPath()+fileName);
+			BufferedReader br = new BufferedReader(fr);	
+			String line = null;
+			try {
+				line = br.readLine();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			while(line != null){
+				
+				sb.append(line);
+				try {
+					line = br.readLine();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			return sb.toString()+"\n";
+			
+			
 		}
 		return "Not possible to read File: " + read.get(id).getPath()
 				+ fileName + "\n";
