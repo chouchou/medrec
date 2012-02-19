@@ -28,7 +28,7 @@ public class SSLServer {
 		log.delete();
 		try {
 			fileTxt = new FileHandler("logging.txt");
-			logger = Logger.getLogger("MyLog");
+			logger = Logger.getLogger("ServerLog");
 		    logger.addHandler(fileTxt);
 		    logger.setLevel(Level.ALL);
 		    SimpleFormatter formatter = new SimpleFormatter();

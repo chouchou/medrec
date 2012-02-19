@@ -32,7 +32,7 @@ public abstract class Human {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		logger = Logger.getLogger("MyLog");
+		logger = Logger.getLogger("UserLog");
 	    logger.addHandler(fileTxt);
 	    logger.setLevel(Level.ALL);
 	    SimpleFormatter formatter = new SimpleFormatter();
