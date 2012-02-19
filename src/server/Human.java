@@ -9,9 +9,9 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 
 public abstract class Human {
-	private int pNbr;
-	private HashMap<Integer, Human> read;
-	public Human(int pNbr, HashMap<Integer, Human> read){
+	private String pNbr;
+	private HashMap<String, Human> read;
+	public Human(String pNbr, HashMap<String, Human> read){
 	this.read = read;
 	this.pNbr = pNbr;
 	read.put(pNbr,this);
@@ -23,8 +23,8 @@ public abstract class Human {
 		return pNbr + "\\";
 	}
 
-	public String readRecord(int id, String fileName) throws FileNotFoundException{
-		StringBuilder sb = new StringBuilder();
+	public String readRecord(String id, String fileName) throws FileNotFoundException{
+	
 		
 		
 		if(checkAccess(id)){
@@ -34,11 +34,9 @@ public abstract class Human {
 		return "Couldn't compute";
 	}
 	
-	public String writeRecord(int id,String fileName,String message){
-		return"No privilegies";
-	}
+	public abstract String writeRecord(String id,String fileName,String message);
 
-public boolean checkAccess(int id){
+public boolean checkAccess(String id){
 	if(read.get(id) != null){
 		return true;
 	}else{

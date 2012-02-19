@@ -2,11 +2,11 @@ package server;
 
 import java.util.HashMap;
 
-public class Nurse extends Human {
+public class Nurse extends MedicalPersonal {
 
-	public Nurse(int personalNumber, HashMap<Integer, Human> read, HashMap<Integer, Human> write) {
-		super(personalNumber, read);
-		// TODO Auto-generated constructor stub
+	public Nurse(String personalNumber, HashMap<String, Human> read, HashMap<String, Human> write) {
+		super(personalNumber, read, write);
 	}
 
+	
 }

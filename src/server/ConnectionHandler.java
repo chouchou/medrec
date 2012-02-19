@@ -13,7 +13,7 @@ public class ConnectionHandler {
 	private static final char EXIT = 'E';
 	private static final char WRITE = 'W';
 	private String response;
-
+	private String fileName; 
 	public ConnectionHandler() {
 		parser = new DataParser("Users.txt");
 	}
@@ -54,15 +54,19 @@ public class ConnectionHandler {
 			case WRITE:
 				writer.write("Specify filename\n");
 				writer.flush();
-				String fileName = reader.readLine();
+				fileName = reader.readLine();
 				writer.write("Write message\n");
 				writer.flush();
 				String message = reader.readLine();
 				String whatHappend = getCurrentUser().writeRecord(
-						Integer.parseInt(id), fileName, message);
+						id, fileName, message);
 				writer.write(whatHappend);
 				writer.flush();
 			case VIEW:
+				writer.write("Specify filename\n");
+				writer.flush();
+				fileName = reader.readLine();
+				getCurrentUser().readRecord(id, fileName);
 				break;
 			case REMOVE:
 				break;
@@ -93,7 +97,7 @@ public class ConnectionHandler {
 			// Close system
 		}
 
-		else if (getCurrentUser().checkAccess(Integer.parseInt(response))) {
+		else if (getCurrentUser().checkAccess(response)) {
 			writer.write("Access granted for patient: " + response);
 			writer.flush();
 			enableCommunication(writer, reader, response);

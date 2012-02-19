@@ -3,18 +3,20 @@ package server;
 import java.io.IOException;
 import java.util.HashMap;
 
-public class SocialService extends Human {
+public class SocialService extends MedicalPersonal {
 
-	public SocialService(int personalNumber,
-			HashMap<Integer, Human> accessToThesePpl) {
-		super(personalNumber, accessToThesePpl);
+	public SocialService(String personalNumber,
+			HashMap<String, Human> read, HashMap<String, Human> write) {
+		super(personalNumber, read, write);
 	}
 	
-	public String writeRecord(int id,String fileName) throws IOException{
-		return "Access Denied";
-	}
+
+
+
+
 
 	public void Delete(int id){
 		
 	}
+
 }
