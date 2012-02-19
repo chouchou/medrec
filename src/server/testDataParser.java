@@ -6,9 +6,14 @@ public class testDataParser {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String fakeSubject = "CN=5006121516, OU=, O=Patient, L=Lund, ST=SKåne, C=SE";
+		String fakeSubject = "CN=8001023333, OU=, O=Patient, L=Lund, ST=SKåne, C=SE";
 		DataParser dp = new DataParser("Users");
-		dp.identifyUser(fakeSubject);
+		try {
+			dp.identifyUser(fakeSubject);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }
