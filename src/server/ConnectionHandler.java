@@ -3,7 +3,6 @@ package server;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.util.HashMap;
 
 public class ConnectionHandler {
 	private DataParser parser;
