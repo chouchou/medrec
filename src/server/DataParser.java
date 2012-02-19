@@ -69,9 +69,8 @@ public class DataParser {
 					
 			}else if (s[1]!="Patient"){
 				HashMap<Integer, Human> read = findPatients(Integer.parseInt(s[2]));
-				String[] additPat = s[3].split(",");
-				for(int i=0;i<additPat.length;i++){
-					write.put(Integer.parseInt(additPat[0]), new Patient(Integer.parseInt(additPat[0]), new HashMap<Integer,Human>()));
+				for(int i=3;i<s.length;i++){
+					write.put(Integer.parseInt(s[0]), new Patient(Integer.parseInt(s[i]), new HashMap<Integer,Human>()));
 				}
 				currentUser = hf.createHumam(Integer.parseInt(s[0]), read, write, s[1]);
 				
