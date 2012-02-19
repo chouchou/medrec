@@ -20,12 +20,12 @@ import javax.net.ssl.*;
 
 public class SSLServer {
 	ConnectionHandler handler = new ConnectionHandler();
-	
+	FroggerLogger logger = FroggerLogger.getInstance();  
 	
 	
 
 	public SSLServer(int port) {
-		FroggerLogger logger = FroggerLogger.getInstance();  
+	
 		      logger.myLogger.log(Level.INFO,"Servern startas");
 			
 			try {
@@ -64,7 +64,7 @@ public class SSLServer {
 		ss.setNeedClientAuth(true);
 		
 		SSLSocket connection = (SSLSocket) ss.accept();
-		logger.log(Level.INFO,"User Conneting");
+		logger.myLogger.log(Level.INFO,"User Conneting");
 		SSLSession session = connection.getSession();
 
 		BufferedReader r = new BufferedReader(new InputStreamReader(connection
@@ -75,12 +75,12 @@ public class SSLServer {
 		javax.security.cert.X509Certificate cert = session
 				.getPeerCertificateChain()[0];
 		String subject = cert.getSubjectDN().getName();
-		logger.log(Level.INFO,"Connected User:"+ subject);
+		logger.myLogger.log(Level.INFO,"Connected User:"+ subject);
 		if (handler.validateSubject(subject)) {
 			handler.startCommunication(w, r);
 		} else {
 			w.write("Subject not in the system");
-			logger.log(Level.WARNING,"USER NOT IN SYSTEM"+ subject);
+			logger.myLogger.log(Level.WARNING,"USER NOT IN SYSTEM"+ subject);
 			w.flush();
 			// Close socket
 		}
