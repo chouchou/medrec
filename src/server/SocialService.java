@@ -17,7 +17,7 @@ public class SocialService extends Human {
 			
 			File file = new File(read.get(id).getPath() + fileName);
 			file.delete();
-			logger.log(Level.INFO,"SocialServices deleted record "+fileName+" for user "+id);
+			logger.myLogger.log(Level.INFO,"SocialServices deleted record "+fileName+" for user "+id);
 			return "File: " + read.get(id).getPath() + fileName
 					+ "Was succesfully deleted\n";
 

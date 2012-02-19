@@ -25,7 +25,7 @@ public class Doctor extends MedicalPersonal {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			logger.log(Level.INFO, pNbr+" created record "+ fileName+"for user "+ id);
+			logger.myLogger.log(Level.INFO, pNbr+" created record "+ fileName+"for user "+ id);
 			return "File: " + fileName + " was added\n";
 			
 		}

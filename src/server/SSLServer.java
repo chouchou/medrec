@@ -20,32 +20,24 @@ import javax.net.ssl.*;
 
 public class SSLServer {
 	ConnectionHandler handler = new ConnectionHandler();
-	FileHandler fileTxt;
-	File log = new File("logging.txt");
-	Logger logger;
+	
+	
+	
 
 	public SSLServer(int port) {
-		log.delete();
-		try {
-			fileTxt = new FileHandler("logging.txt");
-			logger = Logger.getLogger("ServerLog");
-		    logger.addHandler(fileTxt);
-		    logger.setLevel(Level.ALL);
-		    SimpleFormatter formatter = new SimpleFormatter();
-		    fileTxt.setFormatter(formatter);
-
-		      // the following statement is used to log any messages   
-		      logger.log(Level.INFO,"Servern startas");
-
+		FroggerLogger logger = FroggerLogger.getInstance();  
+		      logger.myLogger.log(Level.INFO,"Servern startas");
 			
-			setUpSomeTrustAndListen(port);
-		} catch (GeneralSecurityException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+			try {
+				setUpSomeTrustAndListen(port);
+			} catch (GeneralSecurityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	
 	}
 
 	private void setUpSomeTrustAndListen(int port)
