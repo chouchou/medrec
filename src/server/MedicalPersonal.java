@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 public abstract class MedicalPersonal extends Human {
 
@@ -35,7 +36,7 @@ public abstract class MedicalPersonal extends Human {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+			logger.log(Level.INFO, pNbr+" wrote in record "+ fileName+"for user "+ id);
 			return "Successfully writen to: " + target.getPath() + fileName
 					+ "\n";
 		}
@@ -49,8 +50,10 @@ public abstract class MedicalPersonal extends Human {
 
 	public boolean hasWriteAccess(String id) {
 		if (write.get(id) != null) {
+			logger.log(Level.INFO, pNbr+" tries to write "+ id+" record :Accepted");
 			return true;
 		} else {
+			logger.log(Level.INFO, pNbr+" tries to write "+ id+" record :Denied");
 			return false;
 		}
 	}

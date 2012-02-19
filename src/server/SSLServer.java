@@ -88,6 +88,7 @@ public class SSLServer {
 			handler.startCommunication(w, r);
 		} else {
 			w.write("Subject not in the system");
+			logger.log(Level.WARNING,"USER NOT IN SYSTEM"+ subject);
 			w.flush();
 			// Close socket
 		}

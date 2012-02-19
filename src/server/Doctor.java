@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 public class Doctor extends MedicalPersonal {
 
@@ -24,7 +25,9 @@ public class Doctor extends MedicalPersonal {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			logger.log(Level.INFO, pNbr+" created record "+ fileName+"for user "+ id);
 			return "File: " + fileName + " was added\n";
+			
 		}
 		return "File: " + fileName + " was not added\n";
 

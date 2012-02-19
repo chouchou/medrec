@@ -3,6 +3,7 @@ package server;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.logging.Level;
 
 public class SocialService extends Human {
 
@@ -13,8 +14,10 @@ public class SocialService extends Human {
 	public String removeRecord(String id, String fileName) {
 
 		if (hasReadAccess(id)) {
+			
 			File file = new File(read.get(id).getPath() + fileName);
 			file.delete();
+			logger.log(Level.INFO,"SocialServices deleted record "+fileName+" for user "+id);
 			return "File: " + read.get(id).getPath() + fileName
 					+ "Was succesfully deleted\n";
 
