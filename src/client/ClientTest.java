@@ -6,8 +6,8 @@ public class ClientTest {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		System.setProperty("javax.net.debug", "ssl,handshake");
-		SSLClient c = new SSLClient(args[0]);
+//		System.setProperty("javax.net.debug", "ssl,handshake");
+		SSLClient c = new SSLClient("11keys");
 
 	}
 
