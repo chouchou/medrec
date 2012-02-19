@@ -15,7 +15,7 @@ import java.util.logging.SimpleFormatter;
 public abstract class Human {
 	protected String pNbr;
 	protected HashMap<String, Human> read;
-	File log = new File("log.txt");
+	File log = new File(pNbr+".txt");
 	Logger logger;
 	FileHandler fileTxt;
 
@@ -24,7 +24,7 @@ public abstract class Human {
 		this.pNbr = pNbr;
 		read.put(pNbr, this);
 		try {
-			fileTxt = new FileHandler("log.txt");
+			fileTxt = new FileHandler(pNbr+".txt");
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

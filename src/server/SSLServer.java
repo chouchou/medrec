@@ -21,13 +21,13 @@ import javax.net.ssl.*;
 public class SSLServer {
 	ConnectionHandler handler = new ConnectionHandler();
 	FileHandler fileTxt;
-	File log = new File("log.txt");
+	File log = new File("logging.txt");
 	Logger logger;
 
 	public SSLServer(int port) {
 		log.delete();
 		try {
-			fileTxt = new FileHandler("log.txt");
+			fileTxt = new FileHandler("logging.txt");
 			logger = Logger.getLogger("MyLog");
 		    logger.addHandler(fileTxt);
 		    logger.setLevel(Level.ALL);
