@@ -1,6 +1,10 @@
-8001023333:Doctor:1:8605045050
-8605045050:Patient:3: 
-5006121516:Patient:1:
-7004043223:Nurse:1:
-7510025656:Nurse:3:
-6005239999:SS:
+11:Doctor:1:12:13:14:15:17
+12:Patient:1:
+13:Patient:1:
+14:Patient:1:
+15:Patient:1:
+16:Patient:1:
+17:Patient:2:
+18:Patient:2:
+19:Patient:2:
+110:SS:1:19
