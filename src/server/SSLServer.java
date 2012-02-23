@@ -25,8 +25,9 @@ public class SSLServer {
 	
 
 	public SSLServer(int port) {
-	
-		      logger.myLogger.log(Level.INFO,"Servern startas");
+		logger.myLogger.log(Level.INFO,"Servern startas");
+		
+		      
 			
 			try {
 				setUpSomeTrustAndListen(port);
@@ -37,12 +38,12 @@ public class SSLServer {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		}
 	
-	}
+	
 
 	private void setUpSomeTrustAndListen(int port)
 			throws GeneralSecurityException, IOException {
-
 		char[] password = "storepass".toCharArray();
 		KeyStore clientTrusted = KeyStore.getInstance("JKS");
 		clientTrusted.load(new FileInputStream("servertrust"), password);
@@ -62,7 +63,7 @@ public class SSLServer {
 
 		SSLServerSocket ss = (SSLServerSocket) factory.createServerSocket(port);
 		ss.setNeedClientAuth(true);
-		
+		while(true){
 		SSLSocket connection = (SSLSocket) ss.accept();
 		logger.myLogger.log(Level.INFO,"User Conneting");
 		SSLSession session = connection.getSession();
@@ -87,5 +88,6 @@ public class SSLServer {
 		}
 
 	}
-
+	}
+	
 }

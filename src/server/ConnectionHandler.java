@@ -113,7 +113,10 @@ public class ConnectionHandler {
 				.write("Please specify a patient with format YYMMDD or EXIT to close application\n");
 		writer.flush();
 		response = reader.readLine();
-		if (response == "EXIT") {
+		if (response.equals("EXIT")) {
+			writer.write("CLOSE\n");
+			writer.close();
+			reader.close();
 			myConnection.close();
 		}
 
