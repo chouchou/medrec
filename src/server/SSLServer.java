@@ -77,6 +77,7 @@ public class SSLServer {
 		String subject = cert.getSubjectDN().getName();
 		logger.myLogger.log(Level.INFO,"Connected User:"+ subject);
 		if (handler.validateSubject(subject)) {
+			handler.setConnection(connection);
 			handler.startCommunication(w, r);
 		} else {
 			w.write("Subject not in the system");

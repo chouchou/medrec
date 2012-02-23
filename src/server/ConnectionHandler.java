@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
 
+import javax.net.ssl.SSLSocket;
+
 public class ConnectionHandler {
 	private DataParser parser;
 	private static final char ADD = 'A';
@@ -13,7 +15,7 @@ public class ConnectionHandler {
 	private static final char WRITE = 'W';
 	private String response;
 	private String fileName;
-
+	private SSLSocket myConnection;
 
 
 	public ConnectionHandler() {
@@ -30,6 +32,10 @@ public class ConnectionHandler {
 		}
 		return false;
 
+	}
+	
+	public void setConnection(SSLSocket connection){
+		myConnection = connection;
 	}
 
 	private void enableCommunication(BufferedWriter writer,
@@ -102,12 +108,13 @@ public class ConnectionHandler {
 
 	public void startCommunication(BufferedWriter writer, BufferedReader reader)
 			throws IOException {
+		
 		writer
 				.write("Please specify a patient with format YYMMDD or EXIT to close application\n");
 		writer.flush();
 		response = reader.readLine();
 		if (response == "EXIT") {
-			// Close system
+			myConnection.close();
 		}
 
 		else if (getCurrentUser().hasReadAccess(response)) {
