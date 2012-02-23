@@ -24,7 +24,7 @@ public abstract class MedicalPersonal extends Human {
 			FileWriter fstream = null;
 			BufferedWriter bf = null;
 			try {
-				fstream = new FileWriter(target.getPath() + fileName);
+				fstream = new FileWriter(target.getPath() + fileName,true);
 				bf = new BufferedWriter(fstream);
 			} catch (IOException e) {
 				e.printStackTrace();
